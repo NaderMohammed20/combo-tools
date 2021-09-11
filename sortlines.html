@@ -289,7 +289,7 @@
             try {
                 let text = "";
                 const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
-                const arrLines = input.value.split('\n');
+                const arrLines = input.value.split('\n').filter(item => item !== '');
                 const arrSorted = arrLines.sort(collator.compare);
 
                 arrSorted.forEach((v, idx, array) => {

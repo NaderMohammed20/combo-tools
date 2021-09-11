@@ -260,6 +260,7 @@
         function starttool() {
             var counted = 0;
             var lines = $('#inputtext').val().split('\n');
+            lines = lines.filter(item => item !== '');
             var uniquelines = [];
             if (document.getElementById("c1").checked) {
                 $.each(lines, function (i, el) {
