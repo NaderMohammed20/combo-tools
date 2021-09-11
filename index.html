@@ -80,26 +80,19 @@
                             <ul class="submenu">
                                 <li>
                                     <ul>
-                                        <li><a
-                                                href="https://web.archive.org/web/20200805104623/https://priv8.to/tools/splitjoin">Split
+                                        <li><a href="./splitjoin.html">Split
                                                 or Join Text</a></li>
-                                        <li><a
-                                                href="https://web.archive.org/web/20200805104623/https://priv8.to/tools/randomize">Randomize
+                                        <li><a href="./randomize.html">Randomize
                                                 Lines</a></li>
-                                        <li><a
-                                                href="https://web.archive.org/web/20200805104623/https://priv8.to/tools/removeduplicates">Remove
+                                        <li><a href="./removeduplicates.html">Remove
                                                 Duplicates</a></li>
-                                        <li><a
-                                                href="https://web.archive.org/web/20200805104623/https://priv8.to/tools/findreplace">Find
+                                        <li><a href="./findreplace.html">Find
                                                 and Replace Text</a></li>
-                                        <li><a
-                                                href="https://web.archive.org/web/20200805104623/https://priv8.to/tools/sortlines">Sort
+                                        <li><a href="./sortlines.html">Sort
                                                 Text Lines</a></li>
-                                        <li><a
-                                                href="https://web.archive.org/web/20200805104623/https://priv8.to/tools/removecontaining">Remove
+                                        <li><a href="./removecontaining.html">Remove
                                                 Lines Containing</a></li>
-                                        <li><a
-                                                href="https://web.archive.org/web/20200805104623/https://priv8.to/tools/prefixsuffix">Add
+                                        <li><a href="./prefixsuffix.html">Add
                                                 Prefix or Suffix</a></li>
                                     </ul>
                                 </li>
@@ -357,8 +350,11 @@
             for (i = 0; i <= txtList.length; i++) {
                 s = txtList[i]
                 if (s === '') { continue; }
-                x = indexes = [...s.matchAll(new RegExp(splitter, 'gi'))].map(a => a.index)[splitter_where - 1];
-                str = [s.slice(0, x), s.slice(x + 1)];
+                x = [...s.matchAll(new RegExp(splitter, 'gi'))].map(a => a.index)[splitter_where - 1];
+                //console.log(x);
+                if (x) { str = [s.slice(0, x), s.slice(x + 1)]; }
+                else { str = [s, '']; }
+                //console.log(str);
                 txtOut1.value += str[0] ? str[0] : '';
                 txtOut1.value += '\n';
                 txtOut2.value += str[1] ? str[1] : '';
@@ -448,3 +444,24 @@
 </body>
 
 </html>
+<!--
+     FILE ARCHIVED ON 10:46:23 Aug 05, 2020 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 14:16:42 Sep 10, 2021.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  PetaboxLoader3.resolve: 224.113 (3)
+  load_resource: 275.265
+  exclusion.robots: 0.448
+  cdx.remote: 0.154
+  CDXLines.iter: 25.371 (3)
+  captures_list: 1196.539
+  LoadShardBlock: 580.472 (3)
+  PetaboxLoader3.datanode: 315.532 (4)
+  exclusion.robots.policy: 0.396
+  esindex: 0.017
+-->
