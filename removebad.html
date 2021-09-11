@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui">
-<title>Priv8.to - Randomize Lines</title>
+<title>Priv8.to - Remove Suspended/Blocked</title>
 <meta content="Priv8.to - Combos, Accounts, Cracking &amp; Ewhoring Market - Tools, Free Downloads &amp; More - "
     name="description">
 <meta content="Priv8.to" name="author">
@@ -70,7 +70,7 @@
                                         <li class=""><a href="./sortlines.html">Sort Text Lines</a></li>
                                         <li class=""><a href="./removecontaining.html">Remove Lines Containing</a></li>
                                         <li class=""><a href="./prefixsuffix.html">Add Prefix or Suffix</a></li>
-                                        <li class=""><a href="./removebad.html">Remove Suspended/Blocked</a></li>
+                                        <li class="active"><a href="./removebad.html">Remove Suspended/Blocked</a></li>
 
                                     </ul>
                                 </li>
@@ -116,9 +116,9 @@
             <div class="page-title-box">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h4 class="page-title">Randomize Lines</h4>
+                        <h4 class="page-title">Remove Text From Text [Suspended/Blocked]</h4>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item">Free online randomize lines tool for text files.</li>
+                            <li class="breadcrumb-item">Free online remove text from text tool for text files.</li>
                         </ol>
                     </div>
 
@@ -132,19 +132,25 @@
                         <div class="card-body">
 
                             <h4 id="linesremoved"></h4>
+                            <h6>Complete Text</h6>
                             <div class="form-group">
                                 <textarea id="inputtext" class="form-control" placeholder="Paste your content here..."
                                     style="margin-top: 0px; margin-bottom: 24px; height: 200px;"></textarea>
                             </div>
+                            <h6>Bad Text</h6>
+                            <div class="form-group">
+                                <textarea id="inputtext2" class="form-control" placeholder="Paste your content here..."
+                                    style="margin-top: 0px; margin-bottom: 24px; height: 200px;"></textarea>
+                            </div>
                             <center>
                                 <div class="options">
-                                    <button type="submit" id="usetool" class="btn btn-primary">Randomize Lines</button>
+                                    <button type="submit" onclick="starttool()" class="btn btn-primary">Remove
+                                        duplicated lines </button>
+                                    <br>
+                                    <br>
+                                    <input type="checkbox" id="c1">
+                                    <label for="c1" style="margin-right: 4px;">Case sensitive</label>
 
-                                    <style type="text/css">
-                                        .btn {
-                                            margin-bottom: 3px
-                                        }
-                                    </style>
                                 </div>
                             </center>
                         </div>
@@ -196,36 +202,25 @@
     <!-- End Footer -->
     <!-- jQuery  -->
     <script type="text/javascript">
-        const shuffle = (arrLines) => {
-            for (let i = arrLines.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arrLines[i], arrLines[j]] = [arrLines[j], arrLines[i]];
-            }
-            return arrLines;
+
+        function starttool() {
+            var counted = 0;
+            var lines = $('#inputtext').val().split('\n').filter(item => item !== '');
+            len1 = lines.length;
+            var lines2 = $('#inputtext2').val().split('\n').filter(item => item !== '');
+
+            lines = lines.filter(function (el) {
+                return !lines2.includes(el);
+            });
+            len2 = lines.length;
+            console.log(lines);
+            document.getElementById("linesremoved").innerHTML = (len1 - len2) + " line(s) removed";
+            var textarea = document.getElementById("inputtext");
+            textarea.value = lines.join("\n");
         }
 
-        const input = document.querySelector('#inputtext');
 
-        document.querySelector('#usetool').addEventListener('click', (e) => {
-            try {
-                let text2 = "";
-                const arrLines = input.value.split('\n').filter(item => item !== '');
-                const arrRandomized = shuffle(arrLines);
 
-                arrRandomized.forEach((v, idx, array) => {
-                    if (idx === array.length - 1) {
-                        text2 += `${v}`;
-                    } else {
-                        text2 += `${v}\n`;
-                    }
-                });
-
-                input.value = text2;
-            } catch (e) {
-                console.log(e);
-                return;
-            }
-        });
     </script>
 
     <!--

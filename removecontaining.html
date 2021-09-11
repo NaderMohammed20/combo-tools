@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui">
-<title>Priv8.to - Randomize Lines</title>
+<title>Priv8.to - Remove Lines Containing</title>
 <meta content="Priv8.to - Combos, Accounts, Cracking &amp; Ewhoring Market - Tools, Free Downloads &amp; More - "
     name="description">
 <meta content="Priv8.to" name="author">
@@ -68,7 +68,8 @@
                                         <li class=""><a href="./removeduplicates.html">Remove Duplicates</a></li>
                                         <li class=""><a href="./findreplace.html">Find and Replace Text</a></li>
                                         <li class=""><a href="./sortlines.html">Sort Text Lines</a></li>
-                                        <li class=""><a href="./removecontaining.html">Remove Lines Containing</a></li>
+                                        <li class="active"><a href="./removecontaining.html">Remove Lines Containing</a>
+                                        </li>
                                         <li class=""><a href="./prefixsuffix.html">Add Prefix or Suffix</a></li>
                                         <li class=""><a href="./removebad.html">Remove Suspended/Blocked</a></li>
 
@@ -116,9 +117,9 @@
             <div class="page-title-box">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h4 class="page-title">Randomize Lines</h4>
+                        <h4 class="page-title">Remove Lines Containing</h4>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item">Free online randomize lines tool for text files.</li>
+                            <li class="breadcrumb-item">Free online remove lines containing tool for text files.</li>
                         </ol>
                     </div>
 
@@ -132,19 +133,32 @@
                         <div class="card-body">
 
                             <h4 id="linesremoved"></h4>
+                            <div class="options" style="margin-bottom: 5px;">
+                                <div class="form-group">
+                                    <input
+                                        style="display: inline; height: 51px;padding-left: 5px;width:calc(100% - 92px);padding-left: 10.5px;"
+                                        placeholder="String or regex" type="text" class="form-control"
+                                        id="stringorregex" name="stringorregex">&nbsp;&nbsp;
+                                    <input type="checkbox" id="c2">
+                                    <label for="c2">Regex</label>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <textarea id="inputtext" class="form-control" placeholder="Paste your content here..."
                                     style="margin-top: 0px; margin-bottom: 24px; height: 200px;"></textarea>
                             </div>
+
                             <center>
                                 <div class="options">
-                                    <button type="submit" id="usetool" class="btn btn-primary">Randomize Lines</button>
+                                    <button type="submit" onclick="containing()" class="btn btn-primary">Remove lines
+                                        containing</button>
+                                    <button type="submit" onclick="notcontaining()" class="btn btn-primary">Remove lines
+                                        not containing</button>
+                                    <br>
+                                    <br>
+                                    <input type="checkbox" id="c1">
+                                    <label for="c1">Case sensitive</label>
 
-                                    <style type="text/css">
-                                        .btn {
-                                            margin-bottom: 3px
-                                        }
-                                    </style>
                                 </div>
                             </center>
                         </div>
@@ -196,36 +210,84 @@
     <!-- End Footer -->
     <!-- jQuery  -->
     <script type="text/javascript">
-        const shuffle = (arrLines) => {
-            for (let i = arrLines.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arrLines[i], arrLines[j]] = [arrLines[j], arrLines[i]];
-            }
-            return arrLines;
-        }
 
-        const input = document.querySelector('#inputtext');
-
-        document.querySelector('#usetool').addEventListener('click', (e) => {
-            try {
-                let text2 = "";
-                const arrLines = input.value.split('\n').filter(item => item !== '');
-                const arrRandomized = shuffle(arrLines);
-
-                arrRandomized.forEach((v, idx, array) => {
-                    if (idx === array.length - 1) {
-                        text2 += `${v}`;
+        function containing() {
+            var counted = 0;
+            var string = document.getElementById("stringorregex").value;
+            var lines = $('#inputtext').val().split('\n').filter(item => item !== '');
+            var uniquelines = [];
+            if (document.getElementById("c2").checked) {
+                var regex = new RegExp(string);
+                $.each(lines, function (i, el) {
+                    if (regex.test(el) === false) {
+                        uniquelines.push(el);
                     } else {
-                        text2 += `${v}\n`;
+                        counted++;
                     }
                 });
-
-                input.value = text2;
-            } catch (e) {
-                console.log(e);
-                return;
+            } else {
+                if (document.getElementById("c1").checked) {
+                    $.each(lines, function (i, el) {
+                        if (el.includes(string) === false) {
+                            uniquelines.push(el);
+                        } else {
+                            counted++;
+                        }
+                    });
+                } else {
+                    $.each(lines, function (i, el) {
+                        if (el.toLowerCase().includes(string.toLowerCase()) === false) {
+                            uniquelines.push(el);
+                        } else {
+                            counted++;
+                        }
+                    });
+                }
             }
-        });
+            document.getElementById("linesremoved").innerHTML = counted + " line(s) removed";
+            var textarea = document.getElementById("inputtext");
+            textarea.value = uniquelines.join("\n");
+        }
+
+        function notcontaining() {
+            var counted = 0;
+            var string = document.getElementById("stringorregex").value;
+            var lines = $('#inputtext').val().split('\n');
+            var uniquelines = [];
+            if (document.getElementById("c2").checked) {
+                var regex = new RegExp(string);
+                $.each(lines, function (i, el) {
+                    if (regex.test(el) !== false) {
+                        uniquelines.push(el);
+                    } else {
+                        counted++;
+                    }
+                });
+            } else {
+                if (document.getElementById("c1").checked) {
+                    $.each(lines, function (i, el) {
+                        if (el.includes(string) !== false) {
+                            uniquelines.push(el);
+                        } else {
+                            counted++;
+                        }
+                    });
+                } else {
+                    $.each(lines, function (i, el) {
+                        if (el.toLowerCase().includes(string.toLowerCase()) !== false) {
+                            uniquelines.push(el);
+                        } else {
+                            counted++;
+                        }
+                    });
+                }
+            }
+            document.getElementById("linesremoved").innerHTML = counted + " line(s) removed";
+            var textarea = document.getElementById("inputtext");
+            textarea.value = uniquelines.join("\n");
+        }
+
+
     </script>
 
     <!--
