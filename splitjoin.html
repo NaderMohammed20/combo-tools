@@ -295,7 +295,7 @@
                 if (s === '') { continue; }
                 x = [...s.matchAll(new RegExp(splitter, 'gi'))].map(a => a.index)[splitter_where - 1];
                 //console.log(x);
-                if (x) { str = [s.slice(0, x), s.slice(x + 1)]; }
+                if (x || x ===0) { str = [s.slice(0, x), s.slice(x + 1)]; }
                 else { str = [s, '']; }
                 //console.log(str);
                 txtOut1.value += str[0] ? str[0] : '';
